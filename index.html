@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>NigraBlanka</title>
+<style type="text/css">
+body{margin:0px;padding:0px;}
+article{width:100%;height:100%;}
+.board{width:400px;height:400px;margin:auto;position:relative;}
+#count{position:absolute;margin:auto;top:0px;bottom:0px;left:0px;right:0px;pointer-events:none;height:1em;text-align:center;z-index:1;}
+#board{width:400px;height:400px;margin:auto;position:relative;}
+#board div{width:100px;height:100px;position:absolute;transition:background-color 0.1s linear;}
+.b{background-color:#ddd;}
+.w{background-color:#eee;}
+#clear{width:100%;height:100%;position:absolute;top:0px;display:none;}
+.on{display:block !important;}
+</style>
+<script>
+var L,W,S,C;
+function e(i){return document.getElementById(i);}
+function c(e,f){e.addEventListener('click',f);}
+function r(o){for(var i=o.childNodes.length-1;0<=i;--i){o.removeChild(o.childNodes[i]);}L=[];C=0;e('clear').classList.remove('on');}
+function t(e){if(e){var c=e.classList;c.toggle('b');c.toggle('w');}}
+function g(){e('clear').classList.add('on');}
+function w(e){return e.classList.contains('w');}
+function o(){var c=w(L[0]);for(var i=1;i<L.length;++i){if(w(L[i])!==c){return;}}g();}
+function l(n){return function(){e('count').innerHTML=(++C);t(L[n]);if(!(C%3)){if(0<n%W){t(L[n-1]);}if(n%W+1<W){t(L[n+1]);}}if(!(C%5)){t(L[n-W]);t(L[n+W]);}o();}}
+function f(e,p,l){e.classList.add(p?'b':'w');e.style.left=(l%W*S)+'px';e.style.top=(Math.floor(l/W)*S)+'px';}
+function n(p){var e=document.createElement('div');f(e,p,L.length);c(e,l(L.length));L.push(e);return e;}
+function a(b,p){b.appendChild(n(p));}
+function i(w,h){W=w;}
+window.onload=function(){
+	var b=e('board');
+	r(b);
+	i();
+	S=100;
+	e('count').innerHTML=C;
+	for(var i=0;i<16;++i){a(b,Math.random()<0.5);}
+}
+</script>
+</head>
+<body>
+<article>
+	<div class="board">
+		<div id="board"></div>
+		<div id="count"></div>
+		<div id="clear"></div>
+	</div>
+</article>
+</body>
+</html>
