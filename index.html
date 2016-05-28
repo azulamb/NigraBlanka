@@ -2,18 +2,31 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>NigraBlanka</title>
+<title>Nigra/Blanka</title>
 <style type="text/css">
-body{margin:0px;padding:0px;}
+@font-face {
+	font-family: 'NigraBlankaFont';
+	src: url('NigraBlankaFont.ttf?1') format('truetype');
+}
+.nbf{
+	font-family: 'NigraBlankaFont';
+}
+body{margin:0px;padding:0px;background-color:#111111;}
 article{width:100%;height:100%;}
 .board{width:400px;height:400px;margin:auto;position:relative;}
 #count{position:absolute;margin:auto;top:0px;bottom:0px;left:0px;right:0px;pointer-events:none;height:1em;text-align:center;z-index:1;}
 #board{width:400px;height:400px;margin:auto;position:relative;}
 #board div{width:100px;height:100px;position:absolute;transition:background-color 0.1s linear;}
-.b{background-color:#ddd;}
+.b{background-color:#222;}
 .w{background-color:#eee;}
+.wf{text-shadow:0 1px 0 #fff,1px 0 0 #fff,0 -1px 0 #fff,-1px 0 0 #fff,-1px -1px 0 #fff,1px -1px 0 #fff,-1px 1px 0 #fff,1px 1px 0 #fff;}
+#count{font-size:30px;}
 #clear{width:100%;height:100%;position:absolute;top:0px;display:none;}
 .on{display:block !important;}
+#title{width:100%;height:100%;position:absolute;top:0px;background-color:#222;transition:background-color 0.3s linear;}
+#title:hover{background-color:#eee;}
+h1{display:block;width:6em;height:2em;word-break:break-all;margin:auto;position:absolute;top:0px;bottom:0px;left:0px;right:0px;font-size:30px;color:#eee;transition:color 0.3s linear;}
+#title:hover h1{color:#222;}
 </style>
 <script>
 var L,W,S,C;
@@ -28,14 +41,18 @@ function l(n){return function(){e('count').innerHTML=(++C);t(L[n]);if(!(C%3)){if
 function f(e,p,l){e.classList.add(p?'b':'w');e.style.left=(l%W*S)+'px';e.style.top=(Math.floor(l/W)*S)+'px';}
 function n(p){var e=document.createElement('div');f(e,p,L.length);c(e,l(L.length));L.push(e);return e;}
 function a(b,p){b.appendChild(n(p));}
-function i(w,h){W=w;}
-window.onload=function(){
+function i(){
 	var b=e('board');
 	r(b);
-	i();
 	S=100;
-	e('count').innerHTML=C;
+	W=4;
 	for(var i=0;i<16;++i){a(b,Math.random()<0.5);}
+	e('count').innerHTML=C;
+}
+window.onload=function()
+{
+	var o=e('title');
+	c(o,function(){o.style.display='none';i();});
 }
 </script>
 </head>
@@ -43,8 +60,12 @@ window.onload=function(){
 <article>
 	<div class="board">
 		<div id="board"></div>
-		<div id="count"></div>
-		<div id="clear"></div>
+		<div id="count" class="nbf wf"></div>
+		<div id="title">
+			<h1 class="nbf">Nigra/Blanka</h1>
+		</div>
+		<div id="clear" class="wf">
+		</div>
 	</div>
 </article>
 </body>
