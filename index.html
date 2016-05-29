@@ -36,11 +36,10 @@ article > a{font-size:30px;width:30px;height:30px;position:absolute;}
 #newgame{bottom:1.5em;}
 .on{display:block !important;}
 #title{width:100%;height:100%;position:absolute;top:0px;background-color:#222;transition:background-color 0.3s linear;}
-#title:hover{background-color:#eee;}
 h1{display:block;width:6em;height:2em;word-break:break-all;font-size:30px;color:#eee;transition:color 0.3s linear;font-weight:normal;}
-#title:hover h1{color:#222;}
-.play{font-size:30px;text-align:center;height:3em;padding-top:7em;}
+.play{font-size:30px;text-align:center;height:3em;padding-top:7em;user-select:none;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;}
 .play div{margin:30px auto;}
+.play a{cursor:pointer;}
 .play div a{display:inline;}
 .twitter{top:0px;left:0px;}
 #help{top:0px;right:0px;}
@@ -68,7 +67,7 @@ function i(w,h,d){e('title').style.display='none';W=w;H=h;var b=e('board');r(b);
 function s(){var r=document.styleSheets[0].cssRules;for(var i=0;i<r.length;++i){if(r[i].selectorText==='.board'){B=r[i].style;}if(r[i].selectorText==='#board div'){D=r[i].style;}}}
 function q(){var q=window.location.search.substring(1).split('&'),v,i,d={};for(i=0;i<q.length;++i){v=q[i].split('=');d[v[0]]=v[1];}return d;}
 function p(){var u=navigator.userAgent;return (u.indexOf('iPhone')>0&&u.indexOf('iPad')==-1)||u.indexOf('iPod')>0||u.indexOf('Android')>0;}
-window.onload=function(){var b=document.body;s();var w=b.clientWidth,h=b.clientHeight;if(p()){b.classList.add('sp');}B.width=B.height=(w<h?w:h)+'px';var d=q();if(d.w&&d.h&&d.w*d.h&&d.s&&d.w*d.h/6<=d.s.length){i(parseInt(d.w),parseInt(d.h),d.s);return;}e('w').innerHTML=W=8;e('h').innerHTML=H=8;c(e('addw'),function(){++W;e('w').innerHTML=W;});c(e('subw'),function(){if(W<4){return;}--W;e('w').innerHTML=W;});c(e('addh'),function(){++H;e('h').innerHTML=H;});c(e('subh'),function(){if(W<4){return;}--H;e('h').innerHTML=H;});c(e('play'),function(){i(W,H,'');});}
+window.onload=function(){var b=document.body;s();var w=b.clientWidth,h=b.clientHeight;if(p()){b.classList.add('sp');}B.width=B.height=(w<h?w:h)+'px';var d=q();if(d.w&&d.h&&d.w*d.h&&d.s&&d.w*d.h/6<=d.s.length){i(parseInt(d.w),parseInt(d.h),d.s);return;}e('w').innerHTML=W=8;e('h').innerHTML=H=8;c(e('addw'),function(){++W;e('w').innerHTML=W;});c(e('subw'),function(){if(W<4){return;}--W;e('w').innerHTML=W;});c(e('addh'),function(){++H;e('h').innerHTML=H;});c(e('subh'),function(){if(H<4){return;}--H;e('h').innerHTML=H;});c(e('play'),function(){i(W,H,'');});}
 </script>
 </head>
 <body>
@@ -79,8 +78,8 @@ window.onload=function(){var b=document.body;s();var w=b.clientWidth,h=b.clientH
 		<div id="title">
 			<h1 class="center nbf">Nigra/Blanka</h1>
 			<div class="play center nbf wf">
-				<div><a id="subw">&lt;</a><span id="w"></span><a id="addw">&gt;</a></div>
-				<div><a id="subh">&lt;</a><span id="h"></span><a id="addh">&gt;</a></div>
+				<div><a id="subw">&lt;</a> <span id="w"></span> <a id="addw">&gt;</a></div>
+				<div><a id="subh">&lt;</a> <span id="h"></span> <a id="addh">&gt;</a></div>
 				<a id="play">▶Play</a>
 			</div>
 		</div>
