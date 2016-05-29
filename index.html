@@ -39,7 +39,8 @@ h1{display:block;width:6em;height:2em;word-break:break-all;font-size:30px;color:
 .help{top:0px;right:0px;}
 </style>
 <script>
-var L,W,S,C,B,D;
+var L,W,H,S,C,B,D;
+var T=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9','-','_'];
 function e(i){return document.getElementById(i);}
 function c(e,f){e.addEventListener('click',f);}
 function r(o){for(var i=o.childNodes.length-1;0<=i;--i){o.removeChild(o.childNodes[i]);}L=[];C=0;e('clear').classList.remove('on');}
@@ -52,8 +53,10 @@ function l(n){return function(){e('count').innerHTML=(++C);t(L[n]);if(!(C%3)){if
 function f(e,p,l){e.classList.add(p?'w':'b');e.style.left=(l%W*S)+'px';e.style.top=(Math.floor(l/W)*S)+'px';}
 function h(c){var e=document.createElement('div');e.classList.add(c);return e;}
 function n(p){var e=document.createElement('div');f(e,p,L.length);c(e,l(L.length));e.appendChild(h('fizz'));e.appendChild(h('buzz'));L.push(e);return e;}
-function a(b,p){b.appendChild(n(p));}
+function a(b,p){b.appendChild(n(p));return u?1:0;}
+function u(d){var u='';while(0<d.length){u+=T[d.shift()*32+d.shift()*16+d.shift()*8+d.shift()*4+d.shift()*2+d.shift()];}return u;}
 function i(w,h){
+	W=w;H=h;
 	var b=e('board');
 	r(b);
 	var _w=document.body.clientWidth;
@@ -63,14 +66,19 @@ function i(w,h){
 	B.width=(w*S)+'px';
 	B.height=(h*S)+'px';
 	D.width=D.height=S+'px';
-	W=w;
-	for(var i=0;i<16;++i){a(b,Math.random()<0.5);}
+	var s=[];
+	for(var i=0;i<16;++i){s.push(a(b,Math.random()<0.5));}
+	while(s.length%6!=0){s.push(0);}
+	history.pushState('','','./?w='+w+'&h='+h+'&s'+u(s));
 	e('count').innerHTML=C;
 }
 function s(){var r=document.styleSheets[0].cssRules;for(var i=0;i<r.length;++i){if(r[i].selectorText==='.board'){B=r[i].style;}if(r[i].selectorText==='#board div'){D=r[i].style;}}}
 window.onload=function()
 {
 	s();
+	var w=document.body.clientWidth;
+	var h=document.body.clientHeight;
+	B.width=B.height=(w<h?w:h)+'px';
 	var o=e('title');
 	c(o,function(){o.style.display='none';i(4,4);});
 }
