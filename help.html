@@ -26,7 +26,7 @@ h2{text-align:center;}
 function browserlang(){try{return (navigator.browserLanguage || navigator.language || navigator.userLanguage).substr(0,2)}catch(e){return 'en';}}
 function change(l){document.body.classList.add(l);document.body.classList.remove(l==='ja'?'en':'ja');}
 function click(i){document.getElementById(i).addEventListener('click',function(){change(i)});}
-window.onload=function(){if(browserlang()!=='ja'){change('en');}click('ja');click('en');}
+window.onload=function(){var l=window.location.search.substring(1)||browserlang();if(l!=='ja'){change('en');}click('ja');click('en');}
 </script>
 </head>
 <body class="ja">
@@ -54,7 +54,7 @@ window.onload=function(){if(browserlang()!=='ja'){change('en');}click('ja');clic
 		</ul>
 	</section>
 	<section class="en">
-		<h2>Change color.</h2>
+		<h2>Change color</h2>
 		<p>Can change colors when you click/tap the panel.</p>
 		<p>There is also a case of changing the color of the surroundings.</p>
 		<ul>
