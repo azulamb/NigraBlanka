@@ -43,7 +43,8 @@ h1{display:block;width:6em;height:2em;word-break:break-all;font-size:30px;color:
 .play div{margin:30px auto;}
 .play div a{display:inline;}
 .twitter{top:0px;left:0px;}
-.help{top:0px;right:0px;}
+#help{top:0px;right:0px;}
+#close{top:0px;right:0px;display:none;}
 </style>
 <script>
 var L,W,H,S,C,B,D,U;
@@ -63,7 +64,7 @@ function n(p){var e=document.createElement('div');f(e,p,L.length);c(e,l(L.length
 function a(b,p){b.appendChild(n(p));return p?1:0;}
 function u(d){var u='';while(d.length){u+=T[d.shift()*32+d.shift()*16+d.shift()*8+d.shift()*4+d.shift()*2+d.shift()];}return u;}
 function k(d){var s=[];while(d.length){var v=T.indexOf(d.shift());s.push(v&32,v&16,v&8,v&4,v&2,v&1);}return s;}
-function i(w,h,d){e('title').style.display='none';W=w;H=h;var b=e('board');r(b);var _w=document.body.clientWidth;var _h=document.body.clientHeight;S=_w/w;if(_h<h*S){S=_h/h;}B.width=(w*S)+'px';B.height=(h*S)+'px';D.width=D.height=S+'px';var s=d?k(d.split('')):[];if(s.length){for(var i=0;i<w*h;++i){a(b,s[i]);}}else{for(var i=0;i<w*h;++i){s.push(a(b,Math.random()<0.5));}while(s.length%6!=0){s.push(0);}}U=e('retry').href='?w='+w+'&h='+h+'&s='+(d||u(s));e('count').innerHTML=C;history.pushState('','','./'+U);}
+function i(w,h,d){e('title').style.display='none';W=w;H=h;var b=e('board');r(b);var _w=document.body.clientWidth;var _h=document.body.clientHeight;S=_w/w;if(_h<h*S){S=_h/h;}B.width=(w*S)+'px';B.height=(h*S)+'px';D.width=D.height=S+'px';var s=d?k(d.split('')):[];if(s.length){for(var i=0;i<w*h;++i){a(b,s[i]);}}else{for(var i=0;i<w*h;++i){s.push(a(b,Math.random()<0.5));}while(s.length%6!=0){s.push(0);}}U=e('retry').href='?w='+w+'&h='+h+'&s='+(d||u(s));e('count').innerHTML=C;e('help').style.display='none';e('close').style.display='block';history.pushState('','','./'+U);}
 function s(){var r=document.styleSheets[0].cssRules;for(var i=0;i<r.length;++i){if(r[i].selectorText==='.board'){B=r[i].style;}if(r[i].selectorText==='#board div'){D=r[i].style;}}}
 function q(){var q=window.location.search.substring(1).split('&'),v,i,d={};for(i=0;i<q.length;++i){v=q[i].split('=');d[v[0]]=v[1];}return d;}
 function p(){var u=navigator.userAgent;return (u.indexOf('iPhone')>0&&u.indexOf('iPad')==-1)||u.indexOf('iPod')>0||u.indexOf('Android')>0;}
@@ -93,7 +94,8 @@ window.onload=function(){var b=document.body;s();var w=b.clientWidth,h=b.clientH
 		</div>
 	</div>
 	<a class="twitter nbf wf" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fhirokimiyaoka%2egithub%2eio%2fNigraBlanka%2f%20%23NigraBlanka" target="_blank">🐦</a>
-	<a class="help nbf wf" href="./help.html">?</a>
+	<a class="nbf wf" id="help" href="./help.html">?</a>
+	<a class="nbf wf" id="close" href="./">*</a>
 </article>
 </body>
 </html>
