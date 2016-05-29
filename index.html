@@ -39,7 +39,7 @@ h1{display:block;width:6em;height:2em;word-break:break-all;font-size:30px;color:
 .help{top:0px;right:0px;}
 </style>
 <script>
-var L,W,H,S,C,B,D;
+var L,W,H,S,C,B,D,U;
 var T=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9','-','_'];
 function e(i){return document.getElementById(i);}
 function c(e,f){e.addEventListener('click',f);}
@@ -47,7 +47,7 @@ function r(o){for(var i=o.childNodes.length-1;0<=i;--i){o.removeChild(o.childNod
 function t(e){if(e){var c=e.classList;c.toggle('b');c.toggle('w');}}
 function g(){e('clear').classList.add('on');}
 function w(e){return e.classList.contains('w');}
-function o(){var c=w(L[0]);for(var i=1;i<L.length;++i){if(w(L[i])!==c){return false;}}g();e('color').innerHTML=c?'White':'Black';return true;}
+function o(){var c=w(L[0]);for(var i=1;i<L.length;++i){if(w(L[i])!==c){return false;}}g();e('color').innerHTML=c?'White':'Black';e('tweet').href='https://twitter.com/intent/tweet?text='+encodeURIComponent('Clear '+(c?'White':'Black')+' '+C+' Steps. http://hirokimiyaoka.github.io/NigraBlanka/'+U+' #NigraBlanka');return true;}
 function z(C){var c=e('board').classList;c[C%3===0?'add':'remove']('fizz');c[C%5===0?'add':'remove']('buzz');}
 function l(n){return function(){e('count').innerHTML=(++C);t(L[n]);if(!(C%3)){if(0<n%W){t(L[n-1]);}if(n%W+1<W){t(L[n+1]);}}if(!(C%5)){t(L[n-W]);t(L[n+W]);}if(!o()){z(C+1);}}}
 function f(e,p,l){e.classList.add(p?'w':'b');e.style.left=(l%W*S)+'px';e.style.top=(Math.floor(l/W)*S)+'px';}
@@ -78,10 +78,9 @@ function i(w,h,d){
 	B.height=(h*S)+'px';
 	D.width=D.height=S+'px';
 	var s=d?k(d.split('')):[];
-	if(s.length){for(var i=0;i<w*h;++i){a(b,s[i]);}}else{for(var i=0;i<w*h;++i){s.push(a(b,Math.random()<0.5));}}
-	while(s.length%6!=0){s.push(0);}
-	q=e('retry').href='./?w='+w+'&h='+h+'&s='+u(s);
-	history.pushState('','',q);
+	if(s.length){for(var i=0;i<w*h;++i){a(b,s[i]);}}else{for(var i=0;i<w*h;++i){s.push(a(b,Math.random()<0.5));}while(s.length%6!=0){s.push(0);}}
+	U=e('retry').href='?w='+w+'&h='+h+'&s='+d||u(s);
+	history.pushState('','','./'+q);
 	e('count').innerHTML=C;
 }
 function s(){var r=document.styleSheets[0].cssRules;for(var i=0;i<r.length;++i){if(r[i].selectorText==='.board'){B=r[i].style;}if(r[i].selectorText==='#board div'){D=r[i].style;}}}
