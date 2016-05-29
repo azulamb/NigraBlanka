@@ -17,16 +17,33 @@ article > section{width:640px;margin:auto;}
 .wf{text-shadow:0 1px 0 #fff,1px 0 0 #fff,0 -1px 0 #fff,-1px 0 0 #fff,-1px -1px 0 #fff,1px -1px 0 #fff,-1px 1px 0 #fff,1px 1px 0 #fff;}
 h1{display:block;width:6em;height:2em;word-break:break-all;margin:20px auto;left:0px;right:0px;font-size:30px;color:#eee;font-weight:normal;}
 h2{text-align:center;}
+.ja section.en{display:none;}
+.en section.ja{display:none;}
+.ja section #ja{color:#66cdaa;}
+.en section #en{color:#66cdaa;}
 </style>
+<script>
+function browserlang(){try{return (navigator.browserLanguage || navigator.language || navigator.userLanguage).substr(0,2)}catch(e){return 'en';}}
+function change(l){document.body.classList.add(l);document.body.classList.remove(l==='ja'?'en':'ja');}
+function click(i){document.getElementById(i).addEventListener('click',function(){change(i)});}
+window.onload=function(){if(browserlang()!=='ja'){change('en');}click('ja');click('en');}
+</script>
 </head>
-<body>
+<body class="ja">
 <article>
 	<h1><a href="./" class="nbf">Nigra/Blanka</a></h1>
-	<section>
+	<section style="text-align:center;">
+		<span id="ja">Ja</span> / <span id="en">En</span>
+	</section>
+	<section class="ja">
 		<h2>Nigra/Blankaとは</h2>
 		<p>クリック/タップすると色が変わるパネルをすべて同じ色に揃えるパズルゲームです。</p>
 	</section>
-	<section>
+	<section class="en">
+		<h2>What Nigra/Blanka</h2>
+		<p>This is a game to align the color of all of the panel.</p>
+	</section>
+	<section class="ja">
 		<h2>色の変更</h2>
 		<p>クリック/タップすると、パネルの色が変わります。パネルは黒と白を行き来します。</p>
 		<p>また、クリック/タップした回数が以下の時は周囲のパネルにも影響が及びます。</p>
@@ -34,6 +51,16 @@ h2{text-align:center;}
 			<li>3で割り切れる時には左右</li>
 			<li>5で割り切れる時には上下</li>
 			<li>3と5で割り切れる時には上下左右</li>
+		</ul>
+	</section>
+	<section class="en">
+		<h2>Change color.</h2>
+		<p>Can change colors when you click/tap the panel.</p>
+		<p>There is also a case of changing the color of the surroundings.</p>
+		<ul>
+			<li>Change left and right panel color if click/tap number divisible by 3.</li>
+			<li>Change up and down panel color if click/tap number divisible by 5.</li>
+			<li>Change left, right, up and down panel color if click/tap number divisible by 15.</li>
 		</ul>
 	</section>
 	<section>
