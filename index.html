@@ -2,57 +2,77 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<link rel="shortcut icon" href="./favicon.ico">
 <title>Nigra/Blanka</title>
 <style type="text/css">
-@font-face {
-	font-family: 'NigraBlankaFont';
-	src: url('NigraBlankaFont.ttf?1') format('truetype');
-}
-.nbf{
-	font-family: 'NigraBlankaFont';
-}
-body{margin:0px;padding:0px;background-color:#111111;}
-article{width:100%;height:100%;}
-.board{width:400px;height:400px;margin:auto;position:relative;}
-#count{position:absolute;margin:auto;top:0px;bottom:0px;left:0px;right:0px;pointer-events:none;height:1em;text-align:center;z-index:1;}
-#board{width:400px;height:400px;margin:auto;position:relative;}
+@font-face {font-family: 'NigraBlankaFont';src: url('./NigraBlankaFont.ttf?5') format('truetype');}
+.nbf{font-family:'NigraBlankaFont';}
+html{width:100%;height:100%;}
+body{margin:0px;padding:0px;width:100%;height:100%;background-color:#111111;}
+a{color:#111;text-decoration:none;display:block;transition:color 0.3s linear;}
+a:hover{color:#66cdaa;}
+article{width:100%;height:100%;position:relative;}
+article > a{font-size:30px;width:30px;height:30px;position:absolute;}
+.center{position:absolute;margin:auto;top:0px;bottom:0px;left:0px;right:0px;}
+.board{width:400px;height:400px;margin:auto;position:absolute;top:0px;bottom:0px;left:0px;right:0px;}
+#count{pointer-events:none;height:1em;text-align:center;z-index:1;font-size:30px;}
+#board{width:100%;height:100%;margin:auto;position:absolute;overflow:hidden;}
 #board div{width:100px;height:100px;position:absolute;transition:background-color 0.1s linear;}
+#board div:hover div{z-index:1;pointer-events:none;position:absolute;width:100%;height:100%;background-color:rgba(127,255,212,0.3);background-color 0.1s linear;}
+.fizz div:hover .fizz{width:300% !important;left:-100%;}
+.buzz div:hover .buzz{height:300% !important;top:-100%;}
 .b{background-color:#222;}
 .w{background-color:#eee;}
 .wf{text-shadow:0 1px 0 #fff,1px 0 0 #fff,0 -1px 0 #fff,-1px 0 0 #fff,-1px -1px 0 #fff,1px -1px 0 #fff,-1px 1px 0 #fff,1px 1px 0 #fff;}
-#count{font-size:30px;}
-#clear{width:100%;height:100%;position:absolute;top:0px;display:none;}
+#clear{width:100%;height:100%;position:absolute;top:0px;display:none;font-size:30px;}
+#clear > div{text-align:center;}
+.message{height:5em;}
+.menu{height:11em;}
+.menu > a{top:auto;}
+#retry{bottom:3em;}
+#newgame{bottom:1.5em;}
 .on{display:block !important;}
 #title{width:100%;height:100%;position:absolute;top:0px;background-color:#222;transition:background-color 0.3s linear;}
 #title:hover{background-color:#eee;}
-h1{display:block;width:6em;height:2em;word-break:break-all;margin:auto;position:absolute;top:0px;bottom:0px;left:0px;right:0px;font-size:30px;color:#eee;transition:color 0.3s linear;}
+h1{display:block;width:6em;height:2em;word-break:break-all;font-size:30px;color:#eee;transition:color 0.3s linear;font-weight:normal;}
 #title:hover h1{color:#222;}
+.help{top:0px;right:0px;}
 </style>
 <script>
-var L,W,S,C;
+var L,W,S,C,B,D;
 function e(i){return document.getElementById(i);}
 function c(e,f){e.addEventListener('click',f);}
 function r(o){for(var i=o.childNodes.length-1;0<=i;--i){o.removeChild(o.childNodes[i]);}L=[];C=0;e('clear').classList.remove('on');}
 function t(e){if(e){var c=e.classList;c.toggle('b');c.toggle('w');}}
 function g(){e('clear').classList.add('on');}
 function w(e){return e.classList.contains('w');}
-function o(){var c=w(L[0]);for(var i=1;i<L.length;++i){if(w(L[i])!==c){return;}}g();}
-function l(n){return function(){e('count').innerHTML=(++C);t(L[n]);if(!(C%3)){if(0<n%W){t(L[n-1]);}if(n%W+1<W){t(L[n+1]);}}if(!(C%5)){t(L[n-W]);t(L[n+W]);}o();}}
-function f(e,p,l){e.classList.add(p?'b':'w');e.style.left=(l%W*S)+'px';e.style.top=(Math.floor(l/W)*S)+'px';}
-function n(p){var e=document.createElement('div');f(e,p,L.length);c(e,l(L.length));L.push(e);return e;}
+function o(){var c=w(L[0]);for(var i=1;i<L.length;++i){if(w(L[i])!==c){return false;}}g();e('color').innerHTML=c?'White':'Black';return true;}
+function z(C){var c=e('board').classList;c[C%3===0?'add':'remove']('fizz');c[C%5===0?'add':'remove']('buzz');}
+function l(n){return function(){e('count').innerHTML=(++C);t(L[n]);if(!(C%3)){if(0<n%W){t(L[n-1]);}if(n%W+1<W){t(L[n+1]);}}if(!(C%5)){t(L[n-W]);t(L[n+W]);}if(!o()){z(C+1);}}}
+function f(e,p,l){e.classList.add(p?'w':'b');e.style.left=(l%W*S)+'px';e.style.top=(Math.floor(l/W)*S)+'px';}
+function h(c){var e=document.createElement('div');e.classList.add(c);return e;}
+function n(p){var e=document.createElement('div');f(e,p,L.length);c(e,l(L.length));e.appendChild(h('fizz'));e.appendChild(h('buzz'));L.push(e);return e;}
 function a(b,p){b.appendChild(n(p));}
-function i(){
+function i(w,h){
 	var b=e('board');
 	r(b);
-	S=100;
-	W=4;
+	var _w=document.body.clientWidth;
+	var _h=document.body.clientHeight;
+	S=_w/w;
+	if(_h<h*S){S=_h/h;}
+	B.width=(w*S)+'px';
+	B.height=(h*S)+'px';
+	D.width=D.height=S+'px';
+	W=w;
 	for(var i=0;i<16;++i){a(b,Math.random()<0.5);}
 	e('count').innerHTML=C;
 }
+function s(){var r=document.styleSheets[0].cssRules;for(var i=0;i<r.length;++i){if(r[i].selectorText==='.board'){B=r[i].style;}if(r[i].selectorText==='#board div'){D=r[i].style;}}}
 window.onload=function()
 {
+	s();
 	var o=e('title');
-	c(o,function(){o.style.display='none';i();});
+	c(o,function(){o.style.display='none';i(4,4);});
 }
 </script>
 </head>
@@ -60,13 +80,20 @@ window.onload=function()
 <article>
 	<div class="board">
 		<div id="board"></div>
-		<div id="count" class="nbf wf"></div>
+		<div id="count" class="center nbf wf"></div>
 		<div id="title">
-			<h1 class="nbf">Nigra/Blanka</h1>
+			<h1 class="center nbf">Nigra/Blanka</h1>
 		</div>
-		<div id="clear" class="wf">
+		<div id="clear" class="nbf wf">
+			<div class="center message">Clear <span id="color"></span></div>
+			<div class="center menu">
+				<a class="center" id="retry" href="./">↺Retry</a>
+				<a class="center" id="newgame" href="./">▶New Game</a>
+				<a class="center" id="tweet" href="https://twitter.com/intent/tweet?text=" target="_blank">🐦Tweet</a>
+			</div>
 		</div>
 	</div>
+	<a href="./help.html" class="help nbf wf">?</a>
 </article>
 </body>
 </html>
