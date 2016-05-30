@@ -42,8 +42,11 @@ h1{display:block;width:6em;height:2em;word-break:break-all;font-size:30px;color:
 .play a{cursor:pointer;}
 .play div a{display:inline;}
 .twitter{top:0px;left:0px;}
-#help{top:0px;right:0px;}
-#close{top:0px;right:0px;display:none;}
+#menulist{position:absolute;top:0px;right:0px;overflow:hidden;width:30px;height:30px;transition:height 0.3s linear;font-size:30px;}
+.open{height:110px !important;}
+#menu{}
+#help{}
+#close{}
 </style>
 <script>
 var L,W,H,S,C,B,D,U;
@@ -67,7 +70,7 @@ function i(w,h,d){e('title').style.display='none';W=w;H=h;var b=e('board');r(b);
 function s(){var r=document.styleSheets[0].cssRules;for(var i=0;i<r.length;++i){if(r[i].selectorText==='.board'){B=r[i].style;}if(r[i].selectorText==='#board div'){D=r[i].style;}}}
 function q(){var q=window.location.search.substring(1).split('&'),v,i,d={};for(i=0;i<q.length;++i){v=q[i].split('=');d[v[0]]=v[1];}return d;}
 function p(){var u=navigator.userAgent;return (u.indexOf('iPhone')>0&&u.indexOf('iPad')==-1)||u.indexOf('iPod')>0||u.indexOf('Android')>0;}
-window.onload=function(){var b=document.body;s();var w=b.clientWidth,h=b.clientHeight;if(p()){b.classList.add('sp');}B.width=B.height=(w<h?w:h)+'px';var d=q();if(d.w&&d.h&&d.w*d.h&&d.s&&d.w*d.h/6<=d.s.length){i(parseInt(d.w),parseInt(d.h),d.s);return;}e('w').innerHTML=W=8;e('h').innerHTML=H=8;c(e('addw'),function(){++W;e('w').innerHTML=W;});c(e('subw'),function(){if(W<4){return;}--W;e('w').innerHTML=W;});c(e('addh'),function(){++H;e('h').innerHTML=H;});c(e('subh'),function(){if(H<4){return;}--H;e('h').innerHTML=H;});c(e('play'),function(){i(W,H,'');});}
+window.onload=function(){var b=document.body;s();var w=b.clientWidth,h=b.clientHeight;if(p()){b.classList.add('sp');}B.width=B.height=(w<h?w:h)+'px';var d=q();if(d.w&&d.h&&d.w*d.h&&d.s&&d.w*d.h/6<=d.s.length){i(parseInt(d.w),parseInt(d.h),d.s);return;}e('w').innerHTML=W=8;e('h').innerHTML=H=8;c(e('addw'),function(){++W;e('w').innerHTML=W;});c(e('subw'),function(){if(W<4){return;}--W;e('w').innerHTML=W;});c(e('addh'),function(){++H;e('h').innerHTML=H;});c(e('subh'),function(){if(H<4){return;}--H;e('h').innerHTML=H;});c(e('play'),function(){i(W,H,'');});c(e('menu'),function(){e('menulist').classList.toggle('open');});}
 </script>
 </head>
 <body>
@@ -93,8 +96,11 @@ window.onload=function(){var b=document.body;s();var w=b.clientWidth,h=b.clientH
 		</div>
 	</div>
 	<a class="twitter nbf wf" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fhirokimiyaoka%2egithub%2eio%2fNigraBlanka%2f%20%23NigraBlanka" target="_blank">🐦</a>
-	<a class="nbf wf" id="help" href="./help.html">?</a>
-	<a class="nbf wf" id="close" href="./">*</a>
+	<div id="menulist">
+		<a class="nbf wf" id="menu">☰</a>
+		<a class="nbf wf" id="help" href="./help.html">?</a>
+		<a class="nbf wf" id="close" href="./">*</a>
+	</div>
 </article>
 </body>
 </html>
